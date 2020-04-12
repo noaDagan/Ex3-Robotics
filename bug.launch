@@ -1,0 +1,18 @@
+
+<launch>
+  <param name="/use_sim_time" value="true"/>  
+
+  <!-- Run Gazebo with turtlebot -->
+  <include file="$(find turtlebot_gazebo)/launch/turtlebot_world.launch"/>
+
+  <!-- Publish a static transformation between /odom and /map -->
+  <node name="tf" pkg="tf" type="static_transform_publisher" args="-1 -2 0 0 0 0 /map /odom 100" />
+
+  <!-- Run node -->
+  <node name="my_bug" pkg="bug" type="bug_node.py" output="screen">
+        <param name="forward_speed" type="double" value="0.5"/>
+        <param name="x_goal" type="int" value="-7"/>
+        <param name="y_goal" type="int" value="-5"/>
+    </node>
+
+</launch>
